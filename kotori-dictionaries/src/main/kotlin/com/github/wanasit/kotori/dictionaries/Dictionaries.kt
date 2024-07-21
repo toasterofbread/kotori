@@ -82,13 +82,13 @@ object Dictionaries {
 
         private const val SUDACHI_DICTIONARY_VERSION = "sudachi-dictionary-20200330"
 
-        private const val SUDACHI_DICTIONARY_SMALL_DOWNLOAD_URL = "https://object-storage.tyo2.conoha.io/v1/nc_2520839e1f9641b08211a5c85243124a/sudachi/${SUDACHI_DICTIONARY_VERSION}-small.zip"
+        private const val SUDACHI_DICTIONARY_SMALL_DOWNLOAD_URL = "https://sudachi.s3-website-ap-northeast-1.amazonaws.com/sudachidict/${SUDACHI_DICTIONARY_VERSION}-small.zip"
         private const val SUDACHI_DICTIONARY_SMALL_FILE = "system_small.dic"
 
-        private const val SUDACHI_DICTIONARY_CORE_DOWNLOAD_URL = "https://object-storage.tyo2.conoha.io/v1/nc_2520839e1f9641b08211a5c85243124a/sudachi/${SUDACHI_DICTIONARY_VERSION}-core.zip"
+        private const val SUDACHI_DICTIONARY_CORE_DOWNLOAD_URL = "https://sudachi.s3-website-ap-northeast-1.amazonaws.com/sudachidict/${SUDACHI_DICTIONARY_VERSION}-core.zip"
         private const val SUDACHI_DICTIONARY_CORE_FILE = "system_core.dic"
 
-        private const val SUDACHI_DICTIONARY_FULL_DOWNLOAD_URL = "https://object-storage.tyo2.conoha.io/v1/nc_2520839e1f9641b08211a5c85243124a/sudachi/${SUDACHI_DICTIONARY_VERSION}-core.zip"
+        private const val SUDACHI_DICTIONARY_FULL_DOWNLOAD_URL = "https://sudachi.s3-website-ap-northeast-1.amazonaws.com/sudachidict/${SUDACHI_DICTIONARY_VERSION}-core.zip"
         private const val SUDACHI_DICTIONARY_FULL_FILE = "system_full.dic"
 
         fun downloadSmallDictionary(
