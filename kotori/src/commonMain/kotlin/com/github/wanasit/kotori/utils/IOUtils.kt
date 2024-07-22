@@ -50,16 +50,20 @@ object IOUtils {
         dataOutputStream.writeInt(value)
     }
 
+    fun readStringWithCharset(byteArray: ByteArray, charset: Charset): String {
+        val buffer: kotlinx.io.Buffer = kotlinx.io.Buffer()
+        buffer.write(byteArray)
+
+        return charset.newDecoder().decode(buffer)
+    }
+
     fun readStringWithCharset(inputStream: Source, charset: Charset): String {
         val bytes: ByteArray =
             inputStream.use {
                 it.buffer().readByteArray()
             }
 
-        val buffer: kotlinx.io.Buffer = kotlinx.io.Buffer()
-        buffer.write(bytes)
-
-        return charset.newDecoder().decode(buffer)
+        return readStringWithCharset(bytes, charset)
     }
 
     fun readStringArray(inputStream: Source): Array<String>  {

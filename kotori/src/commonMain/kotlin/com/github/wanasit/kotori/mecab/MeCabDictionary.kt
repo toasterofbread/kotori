@@ -75,6 +75,11 @@ object MeCabConnectionCost {
         return readFromInputStream(lines)
     }
 
+    fun readFromByteArray(byteArray: ByteArray, charset: Charset) : ConnectionCost {
+        val lines = IOUtils.readStringWithCharset(byteArray, charset).split('\n').filter { it.isNotBlank() }
+        return readFromInputStream(lines)
+    }
+
     private fun readFromInputStream(lines: List<String>) : ConnectionCost {
         val whiteSpaceRegEx = "\\s+".toRegex()
 

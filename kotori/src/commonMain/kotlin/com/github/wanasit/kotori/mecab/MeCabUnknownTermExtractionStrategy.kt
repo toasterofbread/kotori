@@ -30,6 +30,17 @@ object MeCabUnknownTermExtractionStrategy {
         return create(charDefinitionLookup, unknownTermEntries)
     }
 
+    fun readFromByteArrays(
+        unknownDefinitionByteArray: ByteArray,
+        charDefinitionByteArray: ByteArray,
+        charset: Charset
+    ) : UnknownTermExtractionByCharacterCategory<MeCabTermFeatures> {
+        val unknownTermEntries = MeCabTermFeatures.readTermEntriesFromByteArray(unknownDefinitionByteArray, charset)
+        val charDefinitionLookup = MeCabCharDefinition
+            .readFromCharDefinitionByteArray(charDefinitionByteArray, charset)
+        return create(charDefinitionLookup, unknownTermEntries)
+    }
+
     fun create(
             charDefinition: MeCabCharDefinition,
             unknownTermEntries: List<MeCabTermEntry>
@@ -81,6 +92,10 @@ class MeCabCharDefinition constructor(
 
         fun readFromCharDefinitionFileInputStream(inputStream: Source, charset: Charset) : MeCabCharDefinition {
             return readFromLines(IOUtils.readStringWithCharset(inputStream, charset).split('\n').filter { it.isNotBlank() })
+        }
+
+        fun readFromCharDefinitionByteArray(byteArray: ByteArray, charset: Charset) : MeCabCharDefinition {
+            return readFromLines(IOUtils.readStringWithCharset(byteArray, charset).split('\n').filter { it.isNotBlank() })
         }
 
         fun readFromLines(lines: List<String>) : MeCabCharDefinition {

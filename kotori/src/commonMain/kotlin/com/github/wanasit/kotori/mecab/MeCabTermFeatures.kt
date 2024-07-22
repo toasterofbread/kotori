@@ -36,6 +36,17 @@ class MeCabLikeTermFeatures(
                     .map { parseTermEntryFromValues(it, parseFeatures) }
         }
 
+        fun readTermEntriesFromByteArray(
+            byteArray: ByteArray,
+            charset: Charset,
+            parseFeatures: ParseFeatures = ::parseWithStandardValueOrder
+        ): List<TermEntry<MeCabLikeTermFeatures>> {
+            val lines = IOUtils.readStringWithCharset(byteArray, charset).split('\n').filter { it.isNotBlank() }
+            return lines
+                .map { CSVUtil.parseLine(it) }
+                .map { parseTermEntryFromValues(it, parseFeatures) }
+        }
+
         fun parseTermEntryFromValues(
                 values: List<String>,
                 parseFeatures: ParseFeatures = ::parseWithStandardValueOrder
