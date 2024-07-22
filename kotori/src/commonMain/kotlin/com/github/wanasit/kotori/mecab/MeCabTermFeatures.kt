@@ -20,7 +20,8 @@ class MeCabLikeTermFeatures(
         val partOfSpeechSubCategory2: String? = null,
         val partOfSpeechSubCategory3: String? = null,
         val conjugationType: String? = null,
-        val conjugationForm: String? = null) {
+        val conjugationForm: String? = null,
+        val reading: String? = null) {
 
     companion object {
 
@@ -56,7 +57,8 @@ class MeCabLikeTermFeatures(
                     partOfSpeechSubCategory2 = nullableValues[2],
                     partOfSpeechSubCategory3 = nullableValues[3],
                     conjugationType = nullableValues[4],
-                    conjugationForm = nullableValues[5]
+                    conjugationForm = nullableValues[5],
+                    reading = nullableValues.getOrNull(7)
             )
         }
     }
