@@ -1,7 +1,19 @@
 plugins {
-    `java-library`
-    kotlin("jvm")
+    kotlin("multiplatform")
     `maven-publish`
+}
+
+kotlin {
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(Okio.Dependencies.Okio)
+                implementation(Ktor.Dependencies.Ktor)
+                implementation(KotlinCodepoints.Dependencies.KotlinCodepoints)
+                implementation(mp_stools.Dependencies.mp_stools)
+            }
+        }
+    }
 }
 
 dependencies {

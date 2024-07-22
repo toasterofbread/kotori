@@ -1,31 +1,55 @@
-import de.undercouch.gradle.tasks.download.Download
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.palantir.gradle.gitversion.VersionDetails
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
-    java
-    kotlin("jvm") version Kotlin.version
+    id("com.android.library") version AGP.version
+    kotlin("multiplatform") version Kotlin.version
 
     id("com.palantir.git-version") version "0.12.3"
 
     id(Release.MavenPublish.plugin)
-    id(Release.Bintray.plugin) version Release.Bintray.version
 }
 
-// Do not publish root project
-bintray {
-    setPublications()
-    setConfigurations()
-    with(pkg) {
-        repo = Kotori.Package.repo
-        name = Kotori.Package.name
+fun Project.kotlinSetup() {
+    kotlin {
+        jvm()
+        androidTarget()
+        @OptIn(ExperimentalWasmDsl::class)
+        wasmJs {
+            browser()
+        }
+
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        applyDefaultHierarchyTemplate {
+            common {
+                group("jvm") {
+                    withAndroidTarget()
+                    withJvm()
+                }
+                withWasmJs()
+            }
+        }
+    }
+
+    android {
+        namespace = Kotori.groupId
+        compileSdk = AGP.compileSdkVersion
+        defaultConfig {
+            minSdk = AGP.minSdkVersion
+        }
     }
 }
 
+kotlinSetup()
 
 allprojects {
     repositories {
-        jcenter()
+        mavenCentral()
+
+        // https://github.com/sergeych/mp_stools
+        maven("https://maven.universablockchain.com/")
     }
 
     // compile bytecode to java 8 (default is java 6)
@@ -34,53 +58,35 @@ allprojects {
     }
 }
 
+val sourcesJar by tasks
+
 val versionDetails: groovy.lang.Closure<*> by extra
 val gitVersionDetails: VersionDetails = versionDetails() as VersionDetails
 val publishProjectPaths = listOf(":kotori", ":kotori-sudachi")
+val multiplatformProjectPaths = listOf(":kotori")
 subprojects {
-    version = gitVersionDetails.lastTag
+    version = gitVersionDetails.lastTag + "-TEST"
     group = Kotori.groupId
+
+    if (project.path in multiplatformProjectPaths) {
+        apply {
+            plugin("com.android.library")
+            plugin("org.jetbrains.kotlin.multiplatform")
+        }
+
+        kotlinSetup()
+    }
 
     if (project.path in publishProjectPaths) {
 
         apply {
-            plugin("java-library")
             plugin(Release.MavenPublish.plugin)
-            plugin(Release.Bintray.plugin)
         }
 
-        task<Jar>("sourcesJar") {
-            from(sourceSets["main"].allSource)
-            archiveClassifier.set("sources")
-        }
-
-
-        bintray {
-            user = findProperty("BINTRAY_USER") as? String
-            key = findProperty("BINTRAY_KEY") as? String
-            publish = true
-            override = true
-
-            setPublications(project.name)
-            with(pkg) {
-                repo = Kotori.Package.repo
-                name = Kotori.Package.name
-                desc = Kotori.Package.desc
-                userOrg = Kotori.Package.userOrg
-                websiteUrl = Kotori.Package.url
-                vcsUrl = Kotori.Package.url
-                setLicenses(Kotori.Package.licenseName)
-                with(version) {
-                    name = project.version as String
-                }
-            }
-        }
-
-        val sourcesJar by tasks
         publishing {
             publications {
                 register(project.name, MavenPublication::class) {
-                    from(components["java"])
+//                    from(components["java"])
                     artifact(sourcesJar)
 
                     groupId = project.group as String

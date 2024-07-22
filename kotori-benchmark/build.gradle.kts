@@ -19,25 +19,25 @@ dependencies {
     testImplementation(Kotlin.Dependencies.TestJunit)
 }
 
-task<JavaExec>("downloadLivedoorNews") {
-    args = listOf("livedoor-news")
-    main = "com.github.wanasit.kotori.benchmark.DownloadDatasetKt"
-    classpath = sourceSets["main"].runtimeClasspath
-}
-
-task<JavaExec>("downloadTatoeba") {
-    args = listOf("tatoeba")
-    main = "com.github.wanasit.kotori.benchmark.DownloadDatasetKt"
-    classpath = sourceSets["main"].runtimeClasspath
-}
-
-task<JavaExec>("benchmark") {
-    dependsOn(":prepareTestingData")
-    main = "com.github.wanasit.kotori.benchmark.BenchmarkKt"
-    classpath = sourceSets["main"].runtimeClasspath
-}
-
-tasks.withType<Test> {
-    dependsOn(":prepareTestingData")
-    maxHeapSize = "2048m"
-}
+//task<JavaExec>("downloadLivedoorNews") {
+//    args = listOf("livedoor-news")
+//    main = "com.github.wanasit.kotori.benchmark.DownloadDatasetKt"
+//    classpath = sourceSets["main"].runtimeClasspath
+//}
+//
+//task<JavaExec>("downloadTatoeba") {
+//    args = listOf("tatoeba")
+//    main = "com.github.wanasit.kotori.benchmark.DownloadDatasetKt"
+//    classpath = sourceSets["main"].runtimeClasspath
+//}
+//
+//task<JavaExec>("benchmark") {
+//    dependsOn(":prepareTestingData")
+//    main = "com.github.wanasit.kotori.benchmark.BenchmarkKt"
+//    classpath = sourceSets["main"].runtimeClasspath
+//}
+//
+//tasks.withType<Test> {
+//    dependsOn(":prepareTestingData")
+//    maxHeapSize = "2048m"
+//}

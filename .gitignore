@@ -31,6 +31,7 @@ hs_err_pid*
 
 # Ignore Gradle project-specific properties
 gradle.properties
+local.properties
 
 # Ignore Gradle build output directory
 build
@@ -38,3 +39,6 @@ out
 
 # Data files
 data/
+
+# Kotlin
+/.kotlin

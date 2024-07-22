@@ -6,8 +6,6 @@ import com.github.wanasit.kotori.mecab.MeCabTermFeatures
 import com.github.wanasit.kotori.optimized.PlainToken
 import com.github.wanasit.kotori.sudachi.dictionary.SudachiDictionary
 import com.github.wanasit.kotori.sudachi.dictionary.SudachiUnknownTermExtraction
-import java.lang.IllegalStateException
-
 
 object Sudachi {
 

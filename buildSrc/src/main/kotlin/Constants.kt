@@ -14,7 +14,7 @@ object Kotori {
 }
 
 object Kotlin {
-    const val version = "1.3.70"
+    const val version = "2.0.0"
     object Dependencies {
         const val Stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
         const val Reflect = "org.jetbrains.kotlin:kotlin-reflect:$version"
@@ -24,10 +24,44 @@ object Kotlin {
     }
 }
 
+object AGP {
+    const val version = "8.2.0"
+    const val minSdkVersion = 1
+    const val compileSdkVersion = 34
+}
+
 object Kuromoji {
     const val version = "0.9.0"
     object Dependencies {
         const val Kuromoji_IPADIC = "com.atilika.kuromoji:kuromoji-ipadic:$version"
+    }
+}
+
+object Okio {
+    const val version = "3.9.0"
+    object Dependencies {
+        const val Okio = "com.squareup.okio:okio:$version"
+    }
+}
+
+object Ktor {
+    const val version = "3.0.0-beta-2"
+    object Dependencies {
+        const val Ktor = "io.ktor:ktor-client-core:$version"
+    }
+}
+
+object KotlinCodepoints {
+    const val version = "0.9.0"
+    object Dependencies {
+        const val KotlinCodepoints = "de.cketti.unicode:kotlin-codepoints:$version"
+    }
+}
+
+object mp_stools {
+    const val version = "1.4.7"
+    object Dependencies {
+        const val mp_stools = "net.sergeych:mp_stools:$version"
     }
 }
 
