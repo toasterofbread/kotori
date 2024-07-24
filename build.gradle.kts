@@ -64,6 +64,8 @@ val versionDetails: groovy.lang.Closure<*> by extra
 val gitVersionDetails: VersionDetails = versionDetails() as VersionDetails
 val publishProjectPaths = listOf(":kotori", ":kotori-sudachi")
 val multiplatformProjectPaths = listOf(":kotori")
+group = Kotori.groupId
+
 subprojects {
     version = gitVersionDetails.lastTag + "-TEST"
     group = Kotori.groupId
